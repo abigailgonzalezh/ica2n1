@@ -17,8 +17,9 @@
       window.addEventListener("keydown", doKeyDown, true);
       // agregamos el "listener" para "escuchar" los eventos del teclado
 
-      var zpos = 10;
-      var xpos = 0.0;
+      var zpos = 30;
+      var xpos = 0;
+      var ypos = 0;
       var x = 0.0;
       var y = 0.0;
       var z = 0.0;
@@ -28,22 +29,27 @@
       var angle = 0;
 
       function doKeyDown(evt) {
-        var zpos = 15.0;
 
         switch (evt.keyCode) {
           case 38 /* Up arrow was pressed */:
-            xpos -= 3.1416 * Math.sin(angle);
-            zpos += 3.1416 * Math.cos(angle);
+            zpos= (zpos-(0.8*Math.cos(ypos))); 
+            xpos= (xpos-(0.8*Math.sin(ypos)));
             break;
           case 40 /* Down arrow was pressed */:
-            xpos += 3.1416 * Math.sin(angle);
-            zpos -= 3.1416 * Math.cos(angle);
+            zpos= (zpos+(0.8*Math.cos(ypos)));
+            xpos= (xpos+(0.8*Math.sin(ypos)));
             break;
           case 37 /* Left arrow was pressed */:
-            angle += 0.1;
+            ypos += 0.1;
             break;
           case 39 /* Right arrow was pressed */:
-            angle -= 0.1;
+            ypos -= 0.1;
+            break;
+          case 87:  /* W was pressed */
+            camera.position.y += 0.5;                        
+            break;
+          case 83:  /* S was pressed */
+            camera.position.y -= 0.5;                        
             break;
         }
       }
@@ -152,13 +158,13 @@
         bases.rotation.y += 0.005;
         
         group.rotation.x = 50;
-        //group.position.y = -10;
+        maq.position.y = -10;
+        group.position.y = -10;
         bases.rotation.x = 50;
         bases.position.y= 0.7;
-        camera.position.z = zpos+20;
+        camera.position.z = zpos; 
         camera.position.x = xpos;
-        camera.position.y = 10;
-        camera.rotation.y = angle;
+        camera.rotation.y = ypos;
         renderer.render(scene, camera);
       };
 
