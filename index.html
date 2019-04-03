@@ -73,9 +73,9 @@
       adjustment /= 10;
       ang += adjustment;
       //centro
-      var geometry = new THREE.BoxGeometry( 20, 1, 25 );
-      var patas = new THREE.BoxGeometry(1,15,1);
-      var base = new THREE.BoxGeometry(10,0.2,10);
+      var table = new THREE.BoxGeometry( 20, 1, 25 );
+      var tlegs = new THREE.BoxGeometry(1,15,1);
+      var base = new THREE.RingGeometry(1,3,32);
 
       // create a Lambert material
       var LambertMaterial = new THREE.MeshLambertMaterial({
@@ -88,36 +88,35 @@
         wireframe: true
       });
 
-      var quartzMaterial = new THREE.MeshLambertMaterial ({
-          map: THREE.ImageUtils.loadTexture("quartz.jpg")
-                                                          });
-      var marmolMaterial = new THREE.MeshLambertMaterial ({
-          map: THREE.ImageUtils.loadTexture("quartz.jpg")
-                                                          });
+      var quartzMaterial = new THREE.MeshLambertMaterial ({map: THREE.ImageUtils.loadTexture("quartz.jpg")});
 
-      var object = new THREE.Mesh(geometry, marmolMaterial);
-      var object1 = new THREE.Mesh(patas, quartzMaterial);
-      var object2 = new THREE.Mesh(patas, quartzMaterial);
-      var object3 = new THREE.Mesh(patas, quartzMaterial);
-      var object4 = new THREE.Mesh(patas, quartzMaterial);
-      var bases = new THREE.Mesh(base, LambertMaterial);
+      var metalMaterial = new THREE.MeshLambertMaterial ({map: THREE.ImageUtils.loadTexture("metal.jpg")});
+
+      var mesa = new THREE.Mesh(table, quartzMaterial);
+      var mesa1 = new THREE.Mesh(tlegs, quartzMaterial);
+      var mesa2 = new THREE.Mesh(tlegs, quartzMaterial);
+      var mesa3 = new THREE.Mesh(tlegs, quartzMaterial);
+      var mesa4 = new THREE.Mesh(tlegs, quartzMaterial);
+      
+      
+      var baser = new THREE.Mesh(base, metalMaterial);
 
       group = new THREE.Object3D(); // create an empty container
       //mesa
-      group.add(object); // add a mesh with geometry to it
+      group.add(mesa); // add a mesh with geometry to it
       //patas
-      group.add(object1);
-      group.add(object2);
-      group.add(object3);
-      group.add(object4);
+      group.add(mesa1);
+      group.add(mesa2);
+      group.add(mesa3);
+      group.add(mesa4);
       //maquina del mal
       maq = new THREE.Object3D();
-      maq.add(bases);
+      maq.add(baser);
 
-      object1.position.y=-7.1; object1.position.x = 8; object1.position.z = 7;
-      object2.position.y=-7.1; object2.position.x = 8; object2.position.z = -7;
-      object3.position.y=-7.1; object3.position.x = -7; object3.position.z = 7;
-      object4.position.y=-7.1; object4.position.x = -7; object4.position.z = -7;
+      mesa1.position.y=-7.1; mesa1.position.x = 8; mesa1.position.z = 7;
+      mesa2.position.y=-7.1; mesa2.position.x = 8; mesa2.position.z = -7;
+      mesa3.position.y=-7.1; mesa3.position.x = -7; mesa3.position.z = 7;
+      mesa4.position.y=-7.1; mesa4.position.x = -7; mesa4.position.z = -7;
       
 
       scene.add(group); // add the group to the scene
@@ -155,13 +154,12 @@
         console.log("position of zpos: " + zpos);
         console.log("position of xpos: " + xpos);
         group.rotation.y += 0.005;
-        bases.rotation.y += 0.005;
+        baser.rotation.y += 0.005;
         
         group.rotation.x = 50;
         maq.position.y = -10;
         group.position.y = -10;
-        bases.rotation.x = 50;
-        bases.position.y= 0.7;
+        baser.rotation.x = 180;
         camera.position.z = zpos; 
         camera.position.x = xpos;
         camera.rotation.y = ypos;
