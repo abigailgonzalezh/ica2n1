@@ -28,6 +28,7 @@
       var zz = 0.0;
       var angle = 0;
       var rotEntiereArm = 0;
+      var rotXEntiereArm = 0;
 
       function doKeyDown(evt) {
 
@@ -72,6 +73,14 @@
           case 71:  /* G was pressed */
             rotEntiereArm -= 0.5;         
             break; 
+          case 82:  /* R was pressed */
+           if(rotXEntiereArm<1.5)
+            rotXEntiereArm += 0.5;         
+            break; 
+          case 70:  /* F was pressed */
+          if(rotXEntiereArm>-1.5)
+            rotXEntiereArm -= 0.5;         
+            break; 
         }
       }
 
@@ -98,7 +107,7 @@
       var tlegs = new THREE.BoxGeometry(1,15,1);
       //robot
       var base = new THREE.CylinderGeometry(2,4,6,30,30);
-      var circle = new THREE.SphereGeometry(2.5,32,32);
+      var circle = new THREE.SphereGeometry(3,32,32);
       var articulation = new THREE.CylinderGeometry(1.5,1.5,10,30,30);
       var mano = new THREE.BoxGeometry(2,3,4);
 
@@ -206,12 +215,13 @@
         console.log("position of y: " + angle);
         console.log("position of zpos: " + zpos);
         console.log("position of xpos: " + xpos);
-        group.rotation.y += 0.005;
-        baseRobot.rotation.y += 0.005;
+        //group.rotation.y += 0.005;
+        //baseRobot.rotation.y += 0.005;
         
         
-        group.rotation.x = 50;
+        //group.rotation.x = 50;
         entireArm.rotation.y=rotEntiereArm;
+        entireArm.rotation.x=rotXEntiereArm;
         
         group.position.y = -10;
         camera.position.z = zpos; 
