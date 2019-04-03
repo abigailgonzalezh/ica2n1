@@ -120,6 +120,7 @@
       var sphere3 = new THREE.Mesh(circle, redMetalMaterial);
       var robotArm = new THREE.Mesh(articulation, metalMaterial);
       var robotArm2 = new THREE.Mesh(articulation, metalMaterial);
+      var robotHand = new THREE.Mesh(mano, metalMaterial);
 
 
       group = new THREE.Object3D(); // create an empty container
@@ -138,6 +139,7 @@
       baseRobot.add(sphere2);
       baseRobot.add(robotArm2);
       baseRobot.add(sphere3);
+      baseRobot.add(robotHand);
 
       mesa1.position.y=-7.1; mesa1.position.x = 10; mesa1.position.z = 10;
       mesa2.position.y=-7.1; mesa2.position.x = 10; mesa2.position.z = -10;
@@ -150,6 +152,7 @@
       sphere2.position.y = 13;
       robotArm2.position.y = 20;
       sphere3.position.y = 27;
+      robotHand.position.y = 31;
       
 
       scene.add(group); // add the group to the scene
