@@ -30,6 +30,8 @@
       var rotEntiereArm = 0;
       var rotXEntiereArm = 0;
       var rotXForeArm = 0;
+      var openFinger = 1.3;
+      var openFinger2 = -1.3;
 
       function doKeyDown(evt) {
 
@@ -88,6 +90,20 @@
           case 72:  /* H was pressed */
             rotXForeArm -= (0.05);         
             break; 
+          //Manita
+          case 73:
+            if(openFinger<1.5 && openFinger2>-1.5){
+              openFinger += 0.1;
+              openFinger2 -= 0.1;
+            }
+            break;
+          
+          case 75:
+          if(openFinger>0.7 && openFinger2<-0.7){
+              openFinger -= 0.1;
+              openFinger2 += 0.1;
+            }
+            break;
         }
       }
 
@@ -178,13 +194,16 @@
       entireArm.add(robotArm2);
       entireArm.add(sphere3);
       entireArm.add(robotHand);
-      entireArm.add(robotFinger);
-      entireArm.add(robotFinger2);
 
       //base robot
       baseRobot = new THREE.Object3D();
       baseRobot.add(baser);
       baseRobot.add(sphere);
+
+      //Mano
+      fingerGroup = new THREE.Object3D();
+      fingerGroup.add(robotFinger);
+      fingerGroup.add(robotFinger2);
 
       mesa1.position.y=-7.1; mesa1.position.x = 10; mesa1.position.z = 10;
       mesa2.position.y=-7.1; mesa2.position.x = 10; mesa2.position.z = -10;
@@ -195,27 +214,18 @@
       sphere.position.y = -1;
       robotArm.position.y = 6;
       sphere2.position.y = 13;
-<<<<<<< HEAD
-      robotArm2.position.y = 13;
-      robotArm2.position.z = 5;
-      robotArm2.rotation.x = 3.1416/2;
-      sphere3.position.y = 13;
-      sphere3.position.z = 12;
-      robotHand.position.y = 13;
-      robotHand.position.z = 16;
-=======
       robotArm2.position.y = 20;
       sphere3.position.y = 27;
       robotHand.position.y = 31;
       robotFinger.position.y = 33; robotFinger.position.x = 0.1; robotFinger.position.z = 1.3;
       robotFinger2.position.y = 33; robotFinger2.position.x = 0.1; robotFinger2.position.z = -1.3;
->>>>>>> b9b222bddcd158d492584a2c101eabb9890bfb68
       
       // add the group to the scene
       scene.add(group); 
       scene.add(baseRobot);
       scene.add(entireArm);
       scene.add(foreArm);
+      scene.add(fingerGroup);
 
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -263,7 +273,13 @@
         //robotArm2.rotation.x+=10;
        
         //foreArm.rotation.y=rotXForeArm;
+
+        fingerGroup.rotation.y = rotEntiereArm;
+        fingerGroup.rotation.x = rotXEntiereArm;
         
+        robotFinger.position.z = openFinger;
+        robotFinger2.position.z = openFinger2;
+
         group.position.y = -10;
         camera.position.z = zpos; 
         camera.position.x = xpos;
