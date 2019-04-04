@@ -29,6 +29,7 @@
       var angle = 0;
       var rotEntiereArm = 0;
       var rotXEntiereArm = 0;
+      var rotXForeArm = 0;
 
       function doKeyDown(evt) {
 
@@ -68,18 +69,24 @@
 
           //Entiere Arm
           case 84:  /* T was pressed */
-            rotEntiereArm += 0.5;         
+            rotEntiereArm += 0.1;         
             break; 
           case 71:  /* G was pressed */
-            rotEntiereArm -= 0.5;         
+            rotEntiereArm -= 0.1;         
             break; 
           case 82:  /* R was pressed */
-           if(rotXEntiereArm<1.5)
-            rotXEntiereArm += 0.5;         
+           if(rotXEntiereArm<0.9)
+            rotXEntiereArm += 0.1;         
             break; 
           case 70:  /* F was pressed */
-          if(rotXEntiereArm>-1.5)
-            rotXEntiereArm -= 0.5;         
+          if(rotXEntiereArm>-0.9)
+            rotXEntiereArm -= 0.1;         
+            break; 
+          case 89:  /* Y was pressed */
+             rotXForeArm += (0.05);         
+            break; 
+          case 72:  /* H was pressed */
+            rotXForeArm -= (0.05);         
             break; 
         }
       }
@@ -107,7 +114,7 @@
       var tlegs = new THREE.BoxGeometry(1,15,1);
       //robot
       var base = new THREE.CylinderGeometry(2,4,6,30,30);
-      var circle = new THREE.SphereGeometry(3,32,32);
+      var circle = new THREE.SphereGeometry(4,32,32);
       var articulation = new THREE.CylinderGeometry(1.5,1.5,10,30,30);
       var mano = new THREE.BoxGeometry(2,3,4);
 
@@ -155,7 +162,14 @@
       group.add(mesa3);
       group.add(mesa4);
 
-      entireArm = new THREE.Object3D(); //Entiere Arm
+     //Forearm
+      foreArm = new THREE.Object3D();
+      foreArm.add(robotArm2);
+      foreArm.add(sphere3);
+      foreArm.add(robotHand);
+
+      //Entiere Arm
+      entireArm = new THREE.Object3D();
       entireArm.add(robotArm);
       entireArm.add(sphere2);
       entireArm.add(robotArm2);
@@ -176,13 +190,19 @@
       sphere.position.y = -1;
       robotArm.position.y = 6;
       sphere2.position.y = 13;
-      robotArm2.position.y = 20;
-      sphere3.position.y = 27;
-      robotHand.position.y = 31;
+      robotArm2.position.y = 13;
+      robotArm2.position.z = 5;
+      robotArm2.rotation.x = 3.1416/2;
+      sphere3.position.y = 13;
+      sphere3.position.z = 12;
+      robotHand.position.y = 13;
+      robotHand.position.z = 16;
       
-      scene.add(group); // add the group to the scene
+      // add the group to the scene
+      scene.add(group); 
       scene.add(baseRobot);
       scene.add(entireArm);
+      scene.add(foreArm);
 
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -218,10 +238,18 @@
         //group.rotation.y += 0.005;
         //baseRobot.rotation.y += 0.005;
         
-        
+        foreArm.rotation.x=rotXForeArm;
         //group.rotation.x = 50;
         entireArm.rotation.y=rotEntiereArm;
         entireArm.rotation.x=rotXEntiereArm;
+
+        //robotArm2.rotation.x=rotXForeArm;
+        //sphere3.rotation.x=rotXForeArm;
+        //robotHand.rotation.x=rotXForeArm;
+
+        //robotArm2.rotation.x+=10;
+       
+        //foreArm.rotation.y=rotXForeArm;
         
         group.position.y = -10;
         camera.position.z = zpos; 
