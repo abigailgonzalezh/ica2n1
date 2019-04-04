@@ -191,12 +191,6 @@
       group.add(mesa3);
       group.add(mesa4);
 
-     //Forearm
-      foreArm = new THREE.Object3D();
-      foreArm.add(robotArm2);
-      foreArm.add(sphere3);
-      foreArm.add(robotHand);
-
       //Conejo
       conejoArm = new THREE.Object3D();
       conejoArm.add(robotArm);
@@ -216,6 +210,15 @@
       handGroup = new THREE.Object3D();
       handGroup.add(fingerGroup);
       handGroup.add(robotHand);
+
+      //Forearm
+      foreArm = new THREE.Object3D();
+      foreArm.add(robotArm2);
+      foreArm.add(sphere3);
+      foreArm.add(handGroup);
+      foreArm.add(robotHand);
+      foreArm.add(robotFinger);
+      foreArm.add(robotFinger2);
 
       //Entire Arm
       entireArm = new THREE.Object3D();
@@ -284,7 +287,7 @@
         //foreArm.rotation.y = rotEntiereArm;
         //foreArm.rotation.x = rotXEntiereArm;
 
-        conejoArm.rotation.x = rotXForeArm;
+        //conejoArm.rotation.x = rotXForeArm;
         //group.rotation.x = 50;
         entireArm.rotation.y=rotEntiereArm;
         entireArm.rotation.x=rotXEntiereArm;
@@ -296,13 +299,10 @@
         //foreArm.rotation.y=rotXForeArm;
 
         //conejoArm.rotation.y = rotEntiereArm;
-        conejoArm.rotation.x = rotXForeArm;
+        //conejoArm.rotation.x = rotXForeArm;
 
         //fingerGroup.rotation.y = rotEntiereArm;
         //fingerGroup.rotation.x = rotXEntiereArm;
-
-        //handGroup.rotation.y = rotEntiereArm;
-        //handGroup.rotation.x = rotXEntiereArm;
 
         handGroup.rotation.x = rotHand;
         fingerGroup.rotation.x = rotHand;
