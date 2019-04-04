@@ -32,6 +32,7 @@
       var rotXForeArm = 0;
       var openFinger = 1.3;
       var openFinger2 = -1.3;
+      var rotHand = 0;
 
       function doKeyDown(evt) {
 
@@ -104,6 +105,15 @@
               openFinger2 += 0.1;
             }
             break;
+          case 85:
+          if(rotHand<0.9){
+            rotHand += 0.1;
+          }
+          break;
+          case 74:
+          if(rotHand>-0.9){
+            rotHand -= 0.1;
+          }
         }
       }
 
@@ -187,23 +197,32 @@
       foreArm.add(sphere3);
       foreArm.add(robotHand);
 
-      //Entiere Arm
-      entireArm = new THREE.Object3D();
-      entireArm.add(robotArm);
-      entireArm.add(sphere2);
-      entireArm.add(robotArm2);
-      entireArm.add(sphere3);
-      entireArm.add(robotHand);
+      //Conejo
+      conejoArm = new THREE.Object3D();
+      conejoArm.add(robotArm);
+      conejoArm.add(sphere2);
 
-      //base robot
+      //Base robot
       baseRobot = new THREE.Object3D();
       baseRobot.add(baser);
       baseRobot.add(sphere);
 
-      //Mano
+      //Dedos
       fingerGroup = new THREE.Object3D();
       fingerGroup.add(robotFinger);
       fingerGroup.add(robotFinger2);
+
+      //Mano
+      handGroup = new THREE.Object3D();
+      handGroup.add(fingerGroup);
+      handGroup.add(robotHand);
+
+      //Entire Arm
+      entireArm = new THREE.Object3D();
+      entireArm.add(foreArm);
+      entireArm.add(conejoArm);
+      entireArm.add(handGroup);
+      entireArm.add(fingerGroup);
 
       mesa1.position.y=-7.1; mesa1.position.x = 10; mesa1.position.z = 10;
       mesa2.position.y=-7.1; mesa2.position.x = 10; mesa2.position.z = -10;
@@ -224,8 +243,7 @@
       scene.add(group); 
       scene.add(baseRobot);
       scene.add(entireArm);
-      scene.add(foreArm);
-      scene.add(fingerGroup);
+      
 
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -262,6 +280,11 @@
         //baseRobot.rotation.y += 0.005;
         
         foreArm.rotation.x=rotXForeArm;
+
+        foreArm.rotation.y = rotEntiereArm;
+        //foreArm.rotation.x = rotXEntiereArm;
+
+        conejoArm.rotation.x = rotXForeArm;
         //group.rotation.x = 50;
         entireArm.rotation.y=rotEntiereArm;
         entireArm.rotation.x=rotXEntiereArm;
@@ -269,13 +292,20 @@
         //robotArm2.rotation.x=rotXForeArm;
         //sphere3.rotation.x=rotXForeArm;
         //robotHand.rotation.x=rotXForeArm;
-
         //robotArm2.rotation.x+=10;
-       
         //foreArm.rotation.y=rotXForeArm;
 
+        conejoArm.rotation.y = rotEntiereArm;
+        conejoArm.rotation.x = rotXForeArm;
+
         fingerGroup.rotation.y = rotEntiereArm;
-        fingerGroup.rotation.x = rotXEntiereArm;
+        //fingerGroup.rotation.x = rotXEntiereArm;
+
+        handGroup.rotation.y = rotEntiereArm;
+        //handGroup.rotation.x = rotXEntiereArm;
+
+        handGroup.rotation.x = rotHand;
+        fingerGroup.rotation.x = rotHand;
         
         robotFinger.position.z = openFinger;
         robotFinger2.position.z = openFinger2;
